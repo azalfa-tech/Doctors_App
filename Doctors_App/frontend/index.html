@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff"><meta name="description" content="Live medical transcription and AI-generated clinical summary">
+  <title>ClinScribe | Live Medical Transcription</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="workspace" aria-label="Medical transcription workspace">
+      <article class="panel transcription-panel">
+        <header class="panel-title"><span class="title-icon">♩</span><h1>Live Medical Transcription</h1></header>
+        <div class="controls">
+          <button class="btn primary" id="startBtn">🎙 Start Mic</button>
+          <button class="btn stop" id="stopBtn" disabled>▣ Stop</button>
+          <button class="btn" id="clearTranscriptBtn">▤ Clear</button>
+          <button class="btn save" id="saveRecordingBtn">▣ Save Recording</button>
+        </div>
+        <div class="counters"><span>▣ WORDS: <b id="wordCount">0</b></span><span>⟳ CHUNKS: <b id="chunkCount">0</b></span><span class="service-status"><i id="serviceDot"></i><span id="serviceStatus">Checking services…</span></span></div>
+        <div class="transcript-wrap"><div class="audio-preview" id="recordingVisual" aria-hidden="true"><span id="micGlyph" class="hidden">🎙</span><div class="audio-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="transcript-box" id="transcriptBox" aria-live="polite"><div class="empty-state" id="emptyTranscript">Ready — click Start Mic and speak naturally. VAD will auto-chunk your speech.</div></div>
+        </div>
+        <textarea id="manualTranscript" class="manual-transcript" placeholder="Or paste/type a transcript here for testing…" aria-label="Transcript text"></textarea>
+        <button class="btn process" id="generateBtn">ϟ Process Transcript with AI</button>
+        <p class="service-footnote"><span id="recordingState">Ready</span> <span id="recordingCaption">— microphone is not active</span> <span id="timer">00:00</span></p>
+        <span id="livePulse" class="hidden"></span>
+      </article>
+
+      <article class="panel summary-panel">
+        <header class="panel-title summary-title"><span class="title-icon">⚕</span><h2>AI Medical Summary</h2><button class="btn clear-summary" id="clearSummaryBtn">× Clear</button></header>
+        <div class="patient-header"><strong id="patientName">Patient Name: - </strong><span id="patientMeta">Age: - Gender: - </span></div>
+        <div class="summary-content" id="noteContent">
+          <section class="summary-section"><h3>▤ CLINICAL SUMMARY</h3><textarea id="clinicalSummary" placeholder="AI-generated clinical summary will appear here…" rows="3"></textarea></section>
+          <section class="summary-section"><h3>☷ CHIEF COMPLAINTS</h3><p class="placeholder">No complaints extracted yet</p></section>
+          <section class="summary-section"><h3>♙ SYMPTOMS</h3><p class="placeholder">No symptoms extracted yet</p></section>
+          <section class="summary-section"><h3>♧ CLINICAL IMPRESSION</h3><p class="placeholder">No diagnosis inferred</p></section>
+          <section class="summary-section"><h3>▤ MEDICATIONS</h3><p class="placeholder">No medications extracted yet</p></section>
+          <section class="summary-section"><h3>♙ EXAMINATIONS &amp; TESTS</h3><p class="placeholder">No examinations extracted yet</p></section>
+          <section class="summary-section"><h3>⚠ ALLERGIES</h3><p class="placeholder">No allergies extracted yet</p></section>
+          <section class="summary-section"><h3>◷ PAST MEDICAL HISTORY</h3><p class="placeholder">No past medical history extracted yet</p></section>
+          <section class="summary-section"><h3>▦ HISTORY &amp; FOLLOW-UP</h3><p class="placeholder">No history or follow-up extracted yet</p></section>
+        </div>
+        <div class="summary-footer"><button class="btn process copy-prescription" id="copyBtn" disabled>Copy to Prescription</button><button class="btn download-json" id="downloadBtn" disabled>Download JSON</button></div>
+        <span id="noteStatus" class="hidden">No note generated</span>
+      </article>
+    </section>
+    <footer class="disclaimer"> · AI-generated drafts must be reviewed by a qualified clinician before use in a medical record.</footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body></html>
